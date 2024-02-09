@@ -40,6 +40,7 @@ function handleSearch() {
   padding: 5px 8px;
   font-family: inherit;
   transition: border-color 0.3s ease;
+  min-height: 37px;
 }
 
 /* Input */
@@ -102,10 +103,6 @@ function handleSearch() {
   .search-component {
     flex-direction: row;
     min-width: 385px;
-  }
-
-  .search-component input {
-    min-height: 37px;
   }
 }
 </style>

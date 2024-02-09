@@ -8,7 +8,7 @@
       :hasSearched="hasSearched"
       :discounts="discounts"
       :isElegible="isElegible"
-      errorMessage="This CUPS doesn't exist. Please, <strong>try again</strong> with
+      errorMessage="This CUPS <strong>doesn't exist</strong>. </br>Please, try again with
             another number"
     />
   </div>
@@ -160,13 +160,14 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   background-color: #f9f8f3;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 .container {
   background-color: white;
-  min-height: 80vh;
-  width: 85%;
+  min-height: 90vh;
+  width: 95%;
   border-radius: 10px;
   box-shadow: 18px 18px 7px -11px rgba(232, 232, 232, 1);
   padding: 20px;
@@ -177,7 +178,7 @@ export default defineComponent({
 
 @media (min-width: 1000px) {
   .container {
-    max-width: 854px;
+    max-width: 700px;
     padding: 20px 32px;
   }
 }

@@ -15,11 +15,18 @@
           </ul>
         </template>
         <template v-else-if="isArray(value)">
-          <!-- arrays -->
+          <!-- Arrays -->
           <strong>{{ formatKey(key) }}:</strong>
-          <li v-for="(item, index) in value" :key="index">
-            {{ item }}<span v-if="index < value.length - 1">, </span>
-          </li>
+          <ul v-if="key === 'neighbors'">
+            <li>
+              {{ value.length }}
+            </li>
+          </ul>
+          <ul v-else>
+            <li v-for="(item, index) in value" :key="index">
+              {{ item }}<span v-if="index < value.length - 1">, </span>
+            </li>
+          </ul>
         </template>
         <template v-else>
           <!-- primitives -->
@@ -96,6 +103,7 @@ export default {
 
 .card h3 {
   margin-bottom: 10px;
+  font-size: 1.2rem;
 }
 
 .list {
@@ -109,11 +117,14 @@ export default {
   text-align: left;
   display: flex;
   gap: 5px;
+  font-size: 15px;
 }
 
-.sub-list {
-  display: flex;
-  gap: 5px;
+@media (min-width: 500px) {
+  .sub-list {
+    display: flex;
+    gap: 5px;
+  }
 }
 
 @media (min-width: 900px) {
@@ -123,6 +134,12 @@ export default {
 
   .card:last-child {
     margin-bottom: 0px;
+  }
+
+  @media (min-width: 1000px) {
+    .card {
+      max-width: 300px;
+    }
   }
 }
 </style>

@@ -1,12 +1,16 @@
 <template>
   <div class="results-container">
-    <transition>
-      <div>
+    <div>
+      <Transition name="bounce">
         <div v-if="showError" class="error" v-html="errorMessage"></div>
-        <div class="message">
+      </Transition>
+      <Transition name="bounce">
+        <div v-if="!showError" class="message">
           <div v-html="showMessage" class="elegible"></div>
           <div v-html="showDiscount" class="discount"></div>
         </div>
+      </Transition>
+      <Transition>
         <div v-if="showInformation" class="cards-layout">
           <CardInfo
             title="Client"
@@ -15,8 +19,8 @@
           />
           <CardInfo title="Supply Point" :info="supplyPoint" />
         </div>
-      </div>
-    </transition>
+      </Transition>
+    </div>
   </div>
 </template>
 
@@ -59,7 +63,7 @@ export default {
       if (props.discounts.basic && props.discounts.special) {
         return `<span>Join us with a <strong>special ${props.discounts.special}% discount</strong>!</span>`;
       } else if (props.discounts.basic) {
-        return `<span>Join us with a <strong>${props.discounts.basic}% basic discount</strong>!</span>`;
+        return `<span>Join us with a <strong>${props.discounts.basic}% discount</strong>!</span>`;
       } else if (props.discounts.special) {
         return `<span>Join us with a <strong>special ${props.discounts.special}% discount</strong>!</span>`;
       }
@@ -94,13 +98,11 @@ export default {
 
 .error {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
 
 .error strong {
   color: #e5027e;
-  text-decoration: underline;
   margin: 0 4px;
 }
 
@@ -124,6 +126,22 @@ export default {
 
 .v-enter-from {
   opacity: 0;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media (min-width: 1000px) {

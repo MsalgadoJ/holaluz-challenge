@@ -1,10 +1,10 @@
-import { shallowMount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import ResultsLayout from "../../src/components/ResultsLayout.vue";
 import CardInfo from "../../src/components/CardInfo.vue";
 
 describe("ResultsLayout", () => {
   it("shows error message when no client or supply point is provided and a search has been made", async () => {
-    const wrapper = shallowMount(ResultsLayout, {
+    const wrapper = mount(ResultsLayout, {
       props: {
         hasSearched: true,
         client: null,
@@ -25,8 +25,14 @@ describe("ResultsLayout", () => {
   });
 
   it("shows eligibility and discount messages based on props", async () => {
-    const wrapper = shallowMount(ResultsLayout, {
+    const wrapper = mount(ResultsLayout, {
       props: {
+        client: { name: "John Doe", power: "4500" },
+        supplyPoint: {
+          location: "Location",
+          power: "5000",
+          neighbors: ["454654", "4654684"],
+        },
         hasSearched: true,
         isElegible: true,
         discounts: {
@@ -35,11 +41,14 @@ describe("ResultsLayout", () => {
         },
       },
     });
+    await wrapper.vm.$nextTick();
 
     expect(wrapper.find(".elegible").html()).toContain(
       '<div class="elegible"><span>You are <strong>eligible</strong> for our rooftop revolution program! 🥳</span></div>'
     );
-    expect(wrapper.find(".discount").html()).toContain("5% basic discount");
+    expect(wrapper.find(".discount").html()).toContain(
+      '<div class="discount"><span>Join us with a <strong>5% discount</strong>!</span></div>'
+    );
   });
 
   it("shows CardInfo components when showInformation is true", async () => {
@@ -50,7 +59,7 @@ describe("ResultsLayout", () => {
       neighbors: ["454654", "4654684"],
     };
 
-    const wrapper = shallowMount(ResultsLayout, {
+    const wrapper = mount(ResultsLayout, {
       props: {
         hasSearched: true,
         client: clientInfo,
